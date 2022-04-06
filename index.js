@@ -1485,7 +1485,7 @@ const main = async () => {
                     MessageType.document,
                     {
                       mimetype: "audio/mpeg",
-                      filename: response + ".mp3",
+                      filename: "ttsID.mp3",
                       quoted: mek,
                     }
                   );
@@ -1499,7 +1499,7 @@ const main = async () => {
                     MessageType.document,
                     {
                       mimetype: "audio/mpeg",
-                      filename: response + ".mp3",
+                      filename: "ttsEN.mp3",
                       quoted: mek,
                     }
                   );
@@ -1513,7 +1513,7 @@ const main = async () => {
                     MessageType.document,
                     {
                       mimetype: "audio/mpeg",
-                      filename: response + ".mp3",
+                      filename: "ttsJP.mp3",
                       quoted: mek,
                     }
                   );
@@ -1527,7 +1527,7 @@ const main = async () => {
                     MessageType.document,
                     {
                       mimetype: "audio/mpeg",
-                      filename: response + ".mp3",
+                      filename: "ttsAR.mp3",
                       quoted: mek,
                     }
                   );
