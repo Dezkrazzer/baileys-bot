@@ -2,7 +2,7 @@
   const more = String.fromCharCode(8206);
   const readMore = more.repeat(4001);
 
-  return `*─「 🔥 <{PVX}> BOT 🔥 」─*
+  return `*─【DEZKRAZZER BOT】─*
   ${readMore}
 📛 *${prefix}sticker*
     - _Create sticker from media!_

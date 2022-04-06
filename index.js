@@ -186,9 +186,9 @@ let setIntervaltg;
 // BASIC SETTINGS
 prefix = "!";
 require("dotenv").config();
-const myNumber = process.env.myNumber;
+const myNumber = "6285735316692";
 const pvx = process.env.pvx;
-const zeksapi = process.env.zeksapi;
+const zeksapi = "W59BFCtwydp2TPJJv0D0UIICzwS";
 
 //CRICKET variables
 let matchIdGroups = {}; //to store every group name with its match ID
@@ -254,19 +254,19 @@ const main = async () => {
       let bdayComb = bday.join(" & ");
       conn.sendMessage(
         pvxcommunity,
-        `*─「 🔥 <{PVX}> BOT 🔥 」─* \n\nToday is ${bdayComb} Birthday 🍰 🎉🎉`,
+        `*─【DEZKRAZZER BOT】─* \n\nToday is ${bdayComb} Birthday 🍰 🎉🎉`,
         MessageType.text
       );
     } else {
       console.log("NO BIRTHDAY!");
       conn.sendMessage(
         pvxcommunity,
-        `*─「 🔥 <{PVX}> BOT 🔥 」─* \n\nThere is no Birthday today!`,
+        `*─【DEZKRAZZER BOT】─* \n\nThere is no Birthday today!`,
         MessageType.text
       );
     }
     try {
-      await conn.groupUpdateSubject(pvxcommunity, "<{PVX}> COMMUNITY ❤️");
+      await conn.groupUpdateSubject(pvxcommunity, "DEZKRAZZER ❤️");
     } catch (err) {
       console.log(err);
     }
@@ -395,7 +395,7 @@ const main = async () => {
         ) {
           conn.sendMessage(
             from,
-            `*─「 🔥 <{PVX}> BOT 🔥 」─* \n\nOnly 91 numbers are allowed !!!!`,
+            `*─【DEZKRAZZER BOT】─* \n\nOnly 91 numbers are allowed !!!!`,
             MessageType.text
           );
           conn.groupRemove(from, anu.participants);
@@ -411,7 +411,7 @@ const main = async () => {
         if (blacklistRes.includes(num_split)) {
           conn.sendMessage(
             from,
-            `*─「 🔥 <{PVX}> BOT 🔥 」─* \n\nNumber is blacklisted !!!!`,
+            `*─【DEZKRAZZER BOT】─* \n\nNumber is blacklisted !!!!`,
             MessageType.text
           );
           conn.groupRemove(from, anu.participants);
@@ -2821,7 +2821,7 @@ _Only numbers starting with the code +91 (i.e. Indians) are allowed to join._`);
         case "sticker":
         case "s":
           if (isMedia || isTaggedImage || isTaggedVideo) {
-            let packName = "DEZKRAZZER";
+            let packName = "DEZKRAZZER BOT";
             let authorName = "lazuardiakbar.me";
             let ran = getRandom(".webp");
 
@@ -3129,7 +3129,7 @@ _Only numbers starting with the code +91 (i.e. Indians) are allowed to join._`);
           reply("🏓 Pong!")
           break;
 
-          
+
         default:
           reply(`👋 Hi! I don't understand the command, please use *!help* for the list of commands`);
           break;
