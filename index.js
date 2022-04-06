@@ -2821,8 +2821,8 @@ _Only numbers starting with the code +91 (i.e. Indians) are allowed to join._`);
         case "sticker":
         case "s":
           if (isMedia || isTaggedImage || isTaggedVideo) {
-            let packName = "BOT 🤖";
-            let authorName = "pvxcommunity.com";
+            let packName = "DEZKRAZZER";
+            let authorName = "lazuardiakbar.me";
             let ran = getRandom(".webp");
 
             let outputOptions = [
@@ -3123,8 +3123,15 @@ _Only numbers starting with the code +91 (i.e. Indians) are allowed to join._`);
           );
           break;
 
+        /* ------------------------------- CASE: UNMUTE ------------------------------ */
+
+        case "ping":
+          reply("🏓 Pong!")
+          break;
+
+          
         default:
-          reply(`Send ${prefix}help for <{PVX}> BOT commands!`);
+          reply(`👋 Hi! I don't understand the command, please use *!help* for the list of commands`);
           break;
       }
     } catch (err) {
