@@ -1457,13 +1457,87 @@ const main = async () => {
           );
           break;
 
-        /* ------------------------------- CASE: UNMUTE ------------------------------ */
+        /* ------------------------------- CASE: PING ------------------------------ */
 
         case "ping":
           reply("🏓 Pong!")
           break;
 
-
+        /* ------------------------------- CASE: TTS ------------------------------ */
+          case "tts":
+            if (args.length === 1) {
+              reply(`❌ Please enter a query! \n*Usage:* ${prefix}tts [id | en | jp | ar] [text]\n*Example:* ${prefix}tts en Hello world`);
+              return;
+            }
+            const ttsId = require('node-gtts')('id')
+            const ttsEn = require('node-gtts')('en')
+	          const ttsJp = require('node-gtts')('ja')
+            const ttsAr = require('node-gtts')('ar')
+            const dataText = body.slice(8)
+            if (dataText === '') return reply(`Baka?`)
+            if (dataText.length > 500) return reply(`❌ Text too loooongg!`)
+            var dataBhs = body.slice(5, 7)
+	          if (dataBhs == 'id') {
+                ttsId.save('./media/tts/resId.mp3', dataText, function () {
+                  conn.sendMessage(
+                    from,
+                    fs.readFileSync(`./media/tts/resId.mp3`),
+                    MessageType.document,
+                    {
+                      mimetype: "audio/mpeg",
+                      filename: response + ".mp3",
+                      quoted: mek,
+                    }
+                  );
+                  fs.unlinkSync(`./media/tts/resId.mp3`);
+                })
+            } else if (dataBhs == 'en') {
+                ttsEn.save('./media/tts/resEn.mp3', dataText, function () {
+                  conn.sendMessage(
+                    from,
+                    fs.readFileSync(`./media/tts/resEn.mp3`),
+                    MessageType.document,
+                    {
+                      mimetype: "audio/mpeg",
+                      filename: response + ".mp3",
+                      quoted: mek,
+                    }
+                  );
+                  fs.unlinkSync(`./media/tts/resEn.mp3`);
+                })
+            } else if (dataBhs == 'jp') {
+                ttsJp.save('./media/tts/resJp.mp3', dataText, function () {
+                  conn.sendMessage(
+                    from,
+                    fs.readFileSync(`./media/tts/resJp.mp3`),
+                    MessageType.document,
+                    {
+                      mimetype: "audio/mpeg",
+                      filename: response + ".mp3",
+                      quoted: mek,
+                    }
+                  );
+                  fs.unlinkSync(`./media/tts/resJp.mp3`);
+                })
+	          } else if (dataBhs == 'ar') {
+                ttsAr.save('./media/tts/resAr.mp3', dataText, function () {
+                  conn.sendMessage(
+                    from,
+                    fs.readFileSync(`./media/tts/resAr.mp3`),
+                    MessageType.document,
+                    {
+                      mimetype: "audio/mpeg",
+                      filename: response + ".mp3",
+                      quoted: mek,
+                    }
+                  );
+                  fs.unlinkSync(`./media/tts/resAr.mp3`);
+                })
+            } else {
+                reply(`Masukkan data bahasa : [id] untuk indonesia, [en] untuk inggris, [jp] untuk jepang, dan [ar] untuk arab`)
+            }
+            break;
+  
         default:
           reply(`👋 Hi! I don't understand the command, please use *!help* for the list of commands`);
           break;
