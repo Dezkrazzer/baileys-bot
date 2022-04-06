@@ -186,7 +186,7 @@ let setIntervaltg;
 // BASIC SETTINGS
 prefix = "!";
 require("dotenv").config();
-const myNumber = "6285735316692";
+const myNumber = "6282337130026";
 const pvx = process.env.pvx;
 const zeksapi = "W59BFCtwydp2TPJJv0D0UIICzwS";
 
@@ -254,14 +254,14 @@ const main = async () => {
       let bdayComb = bday.join(" & ");
       conn.sendMessage(
         pvxcommunity,
-        `*─【DEZKRAZZER BOT】─* \n\nToday is ${bdayComb} Birthday 🍰 🎉🎉`,
+        `*─【 🤖 DEZKRAZZER BOT 🤖 】─* \n\nToday is ${bdayComb} Birthday 🍰 🎉🎉`,
         MessageType.text
       );
     } else {
       console.log("NO BIRTHDAY!");
       conn.sendMessage(
         pvxcommunity,
-        `*─【DEZKRAZZER BOT】─* \n\nThere is no Birthday today!`,
+        `*─【 🤖 DEZKRAZZER BOT 🤖 】─* \n\nThere is no Birthday today!`,
         MessageType.text
       );
     }
@@ -395,7 +395,7 @@ const main = async () => {
         ) {
           conn.sendMessage(
             from,
-            `*─【DEZKRAZZER BOT】─* \n\nOnly 91 numbers are allowed !!!!`,
+            `*─【 🤖 DEZKRAZZER BOT 🤖 】─* \n\nOnly 91 numbers are allowed !!!!`,
             MessageType.text
           );
           conn.groupRemove(from, anu.participants);
@@ -411,7 +411,7 @@ const main = async () => {
         if (blacklistRes.includes(num_split)) {
           conn.sendMessage(
             from,
-            `*─【DEZKRAZZER BOT】─* \n\nNumber is blacklisted !!!!`,
+            `*─【 🤖 DEZKRAZZER BOT 🤖 】─* \n\nNumber is blacklisted !!!!`,
             MessageType.text
           );
           conn.groupRemove(from, anu.participants);
@@ -491,7 +491,7 @@ const main = async () => {
           console.log("Bot is added to new group!");
           conn.sendMessage(
             from,
-            `*─「 🔥 <{PVX}> BOT 🔥 」─* \n\nSEND ${prefix}help FOR BOT COMMANDS`,
+            `*─【 🤖 DEZKRAZZER BOT 🤖 】─* \n\nGreetings! You can send *${prefix}help* for bot commands`,
             MessageType.text
           );
         }
@@ -839,7 +839,7 @@ const main = async () => {
         case "blacklistremove":
         case "blr":
           if (!pvxadminsMem.includes(sender)) {
-            reply(`❌ PVX admin only command!`);
+            reply(`❌ Admin only command!`);
             return;
           }
           if (!isGroupAdmins) {
@@ -873,7 +873,7 @@ const main = async () => {
         case "blacklistadd":
         case "bla":
           if (!pvxadminsMem.includes(sender)) {
-            reply(`❌ PVX admin only command!`);
+            reply(`❌ Admin only command!`);
             return;
           }
           if (!isGroupAdmins) {
@@ -1016,7 +1016,7 @@ const main = async () => {
             donaMsgTemp += `\n❤️ Rs ${dona.amount} - ${dona.name}`;
           });
 
-          let donaMsg = `Helping PVX COMMUNITY${readMore} to grow and provide good stuff for all members.\nUse cases: domain name for PVX website, tournaments in future, server for all bots and website, etc etc.\n\n*Any amount is appreciated.*\n\nUPI: shubhamraw123@okhdfcbank\n\nAfter sending donation, take a screenshot and send to https://wa.me/919557666582 with your name. [Your name will be shown here after that]\n\n*Total Donations: Rs ${totalDona}*`;
+          let donaMsg = `Helping DEZKRAZZER DEVELOPMENT${readMore} to grow and provide good stuff for all members.\nUse cases: domain name for DEZKRAZZER website, tournaments in future, server for all bots and website, etc etc.\n\n*Any amount is appreciated.*\n\n*LINK: https://trakteer.id/dezkrazzer/tip*\n\nAfter sending donation, take a screenshot and send to https://wa.me/6282337130026 with your name. [Your name will be shown here after that]\n\n*Total Donations: Rs ${totalDona}*`;
 
           donaMsg += donaMsgTemp;
           conn.sendMessage(
