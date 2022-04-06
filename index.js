@@ -345,13 +345,13 @@ const main = async () => {
     setInterval(() => {
       console.log("SET INTERVAL.");
       let todayDate = new Date().toLocaleDateString("en-GB", {
-        timeZone: "Asia/kolkata",
+        timeZone: "Asia/Jakarta",
       });
 
       let hour = Number(
         new Date()
           .toLocaleTimeString("en-GB", {
-            timeZone: "Asia/kolkata",
+            timeZone: "Asia/Jakarta",
           })
           .split(":")[0]
       );
@@ -421,70 +421,6 @@ const main = async () => {
             MessageType.text
           );
           return;
-        }
-
-        //for study group
-        if (from === pvxstudy) {
-          conn.sendMessage(
-            from,
-            `Welcome @${num_split} to PVX Study group.\nhttps://pvxcommunity.com/\n\nKindly fill the Biodata form (mandatory for all)\n\n👇🏻👇🏻👇🏻👇🏻👇🏻\nhttps://forms.gle/uuvUwV5fTk8JAjoTA`,
-            MessageType.extendedText,
-            {
-              contextInfo: { mentionedJid: [numJid] },
-              detectLinks: false,
-            }
-          );
-        }
-
-        //for movies group
-        if (from === pvxmovies) {
-          conn.sendMessage(
-            from,
-            `Welcome @${num_split} to PVX Movies.\nhttps://pvxcommunity.com/\n\nWhat are your currently watching..?`,
-            MessageType.extendedText,
-            {
-              contextInfo: { mentionedJid: [numJid] },
-              detectLinks: false,
-            }
-          );
-        }
-
-        //for community group
-        if (from === pvxcommunity) {
-          conn.sendMessage(
-            from,
-            `Welcome @${num_split} to PVX COMMUNITY.\nhttps://pvxcommunity.com/\n\nPlease follow the rules. Send ${prefix}rules to know all rules of PVX\nBe active and Don't spam`,
-            MessageType.extendedText,
-            {
-              contextInfo: { mentionedJid: [numJid] },
-              detectLinks: false,
-            }
-          );
-        }
-
-        //for mano
-        if (from === pvxmano) {
-          conn.sendMessage(
-            from,
-            `Welcome  @${num_split} to PVX MANORANJAN 🔥\n\n1) Send videos regularly especially new members.\n2) Don't Send CP or any other illegal videos.\n 3) A group bot will be counting the number of videos you've sent. \nSend ?pvxv to know video count.\nInactive members will be kicked time to time.`,
-            MessageType.extendedText,
-            {
-              contextInfo: { mentionedJid: [numJid] },
-            }
-          );
-        }
-
-        //for programmer group
-        if (from === pvxprogrammer) {
-          conn.sendMessage(
-            from,
-            `Welcome @${num_split} to PVX Programmers Group.\nhttps://pvxcommunity.com/\n\n*Kindly give your intro like*\nName:\nCollege/Degree:\nInterest:\nSkills:\nCompany(if working):`,
-            MessageType.extendedText,
-            {
-              contextInfo: { mentionedJid: [numJid] },
-              detectLinks: false,
-            }
-          );
         }
 
         if (numJid === botNumberJid) {
@@ -559,57 +495,10 @@ const main = async () => {
       const args = body.trim().split(/ +/).slice(1);
       const isCmd = body.startsWith(prefix);
 
-      //count video
-      //  if (isGroup && mek.message.videoMessage && from == pvxmano) {
-      //   setCountVideo(sender, from);
-      // }
 
-      //send all sticker message to given group
-      // if (
-      //   mek.message.stickerMessage &&
-      //   mek.key.fromMe == false &&
-      //   from.endsWith("@g.us")
-      // ) {
-      //   console.log(mek);
-      //   const mediaSticker = await conn.downloadAndSaveMediaMessage({
-      //     message: mek.message,
-      //   });
-      //   const webpWithMetadataSticker = await WSF.setMetadata(
-      //     "<{PVX}> BOT 🤖",
-      //     "",
-      //     mediaSticker
-      //   );
-      //   //sticker only 1.0 -> "919557666582-1580308963@g.us"
-      //   await conn.sendMessage(
-      //     "919557666582-1628610549@g.us",
-      //     webpWithMetadataSticker,
-      //     MessageType.sticker
-      //   );
-      //   console.log("Sticker Sent!");
-      // }
-
-      /* [INFO] 
-      1) quoted == tagged messages 
-      
-      2) when normal text received
-      mek = {
-        key: {
-          remoteJid: "91955782-1559476348@g.us",
-          fromMe: false,
-          id: "B98FBDD5A762DEA9F4DD733",
-        },
-        message: { conversation: "!help" },
-        messageTimestamp: "1632654425",
-        participant: "919836014@s.whatsapp.net",
-        ephemeralOutOfSync: false,
-      };
-
-      3) type = "conversation" , "imageMessage" , "videoMessage" , "extendedTextMessage"
-        -> extendedTextMessage are tagged messages
-      */
       if (!isCmd) return;
       errors = {
-        admin_error: "❌ I'm not Admin here!",
+        admin_error: "❌ I'm not an admin here!",
       };
 
       const isGroup = from.endsWith("@g.us");
@@ -618,16 +507,7 @@ const main = async () => {
       const groupName = isGroup ? groupMetadata.subject : "";
       let sender = isGroup ? mek.participant : from;
 
-      // if (isGroup && groupName.toUpperCase().includes("<{PVX}>")) {
-      //   let user = conn.contacts[sender];
-      //   let username = user
-      //     ? user.notify ||
-      //       user.vname ||
-      //       user.name ||
-      //       sender.split("@")[0]
-      //     : sender.split("@")[0];
-      //   setCountMember(sender, from, username);
-      // }
+
 
       // console.log(mek);
       if (mek.key.fromMe) sender = botNumberJid;
@@ -788,20 +668,12 @@ const main = async () => {
         /* ------------------------------- CASE: HELP ------------------------------ */
         case "help":
         case "h":
+        case "list":
           const resHelp = await conn.sendMessage(
             from,
             commandList(prefix),
             MessageType.text
           );
-
-          //delete after 5 min
-          // setTimeout(async () => {
-          //   await conn.deleteMessage(from, {
-          //     id: resHelp.key.id,
-          //     remoteJid: from,
-          //     fromMe: true,
-          //   });
-          // }, 1000 * 60 * 5);
           break;
 
         /* ------------------------------- CASE: helpr ------------------------------ */
@@ -812,95 +684,16 @@ const main = async () => {
         /* ------------------------------- CASE: countstats ------------------------------ */
         case "countstats":
           if (myNumber + "@s.whatsapp.net" !== sender) {
-            reply(`❌ Owner only command!`);
+            reply(`❌ This command can only be used by owner!`);
             return;
           }
           let countRes = await getcount();
-          let countMsg = `COMMAND USED STATS:\n${readMore}`;
+          let countMsg = `*COMMAND USED STATS:*\n${readMore}`;
 
           countRes.forEach((r) => {
-            countMsg += `\n${r.to_char} - ${r.times} times`;
+            countMsg += `\n*${r.to_char}* - ${r.times} times`;
           });
           reply(countMsg);
-          break;
-
-        /* ------------------------------- CASE: blacklist ------------------------------ */
-        case "blacklist":
-          let blacklistRes = await getBlacklist();
-          let blacklistMsg = "Blacklisted Numbers\n";
-          blacklistRes.forEach((num) => {
-            blacklistMsg += `\n${num.number}`;
-          });
-
-          reply(blacklistMsg);
-          break;
-
-        /* ------------------------------- CASE: blacklistremove ------------------------------ */
-        case "blacklistremove":
-        case "blr":
-          if (!pvxadminsMem.includes(sender)) {
-            reply(`❌ Admin only command!`);
-            return;
-          }
-          if (!isGroupAdmins) {
-            reply("❌ Admin command!");
-            return;
-          }
-
-          let blacklistNumb1 = args[0];
-          if (!Number(blacklistNumb1)) {
-            reply(
-              `❌ Give number to remove from blacklist by ${prefix}blr number!`
-            );
-            return;
-          }
-          if (blacklistNumb1.startsWith("+")) {
-            blacklistNumb1 = blacklistNumb1.slice(1);
-          }
-          if (
-            blacklistNumb1.length === 10 &&
-            !blacklistNumb1.startsWith("91")
-          ) {
-            blacklistNumb1 = "91" + blacklistNumb1;
-          }
-
-          let blacklistRes1 = await removeBlacklist(blacklistNumb1);
-          if (blacklistRes1) reply("✔️ Removed from blacklist!");
-          else reply("❌ Error!");
-          break;
-
-        /* ------------------------------- CASE: blacklistadd ------------------------------ */
-        case "blacklistadd":
-        case "bla":
-          if (!pvxadminsMem.includes(sender)) {
-            reply(`❌ Admin only command!`);
-            return;
-          }
-          if (!isGroupAdmins) {
-            reply("❌ Admin command!");
-            return;
-          }
-
-          let blacklistNumb2 = args[0];
-          if (!Number(blacklistNumb2)) {
-            reply(`❌ Give number to add in blacklist by ${prefix}bla number!`);
-            return;
-          }
-          if (blacklistNumb2.startsWith("+")) {
-            blacklistNumb2 = blacklistNumb2.slice(1);
-          }
-
-          if (
-            blacklistNumb2.length === 10 &&
-            !blacklistNumb2.startsWith("91")
-          ) {
-            blacklistNumb2 = "91" + blacklistNumb2;
-          }
-
-          let blacklistRes2 = await addBlacklist(blacklistNumb2);
-          if (blacklistRes2) reply("✔️ Added to blacklist!");
-          else reply("❌ Error!");
-
           break;
 
         /* ------------------------------- CASE: warning ------------------------------ */
@@ -911,11 +704,11 @@ const main = async () => {
           //   return;
           // }
           if (!isGroupAdmins) {
-            reply("❌ Admin command!");
+            reply("❌ This command can only be used by group admins!");
             return;
           }
           if (!mek.message.extendedTextMessage) {
-            reply("❌ Tag someone!");
+            reply("❌ You have to tag the person you want to warn!");
             return;
           }
           try {
@@ -935,19 +728,19 @@ const main = async () => {
                 await setCountWarning(mentioned[0], from);
                 if (warnCount >= 2) {
                   if (!isBotGroupAdmins) {
-                    reply("❌ I'm not Admin here!");
+                    reply("❌ I'm not an admin here!");
                     return;
                   }
                   if (groupAdmins.includes(mentioned[0])) {
-                    reply("❌ Cannot remove admin!");
+                    reply("❌ You can't remove an admin!");
                     return;
                   }
                   conn.groupRemove(from, mentioned);
-                  reply("_✔ Number removed from group!_");
+                  reply("_✅ Number removed from group!_");
                 }
               } else {
                 //if multiple members are tagged
-                reply("❌ Mention only 1 member!");
+                reply("❌ You can only tag someone!");
               }
             } else {
               //when message is tagged with command
@@ -965,125 +758,42 @@ const main = async () => {
               await setCountWarning(taggedMessageUser[0], from);
               if (warnCount >= 2) {
                 if (!isBotGroupAdmins) {
-                  reply("❌ I'm not Admin here!");
+                  reply("❌ I'm not an admin here!");
                   return;
                 }
                 if (groupAdmins.includes(taggedMessageUser[0])) {
-                  reply("❌ Cannot remove admin!");
+                  reply("❌ You can't remove an admin!");
                   return;
                 }
                 conn.groupRemove(from, taggedMessageUser);
-                reply("_✔ Number removed from group!_");
+                reply("_✅ Number removed from group!_");
               }
             }
           } catch (err) {
             console.log(err);
-            reply(`❌ Error!`);
+            reply(`❌ Something went wrong, please check console!`);
           }
-          break;
-
-        /* ------------------------------- CASE: donationadd ------------------------------ */
-        // !donationadd #name #amount
-        case "donationadd":
-          if (myNumber + "@s.whatsapp.net" !== sender) {
-            reply(`❌ Owner only command!`);
-            return;
-          }
-          let donaList = body
-            .trim()
-            .replace(/ +/, ",")
-            .split(",")[1]
-            .split("#");
-          let donaName = donaList[1].trim();
-          let donaAmount = Number(donaList[2].trim());
-          if (donaName && donaAmount) {
-            let addDonaRes = await addDonation(donaName, donaAmount);
-            if (addDonaRes) reply("✔️ Added!");
-            else reply("❌ Error!");
-          } else reply(`❌ Error! Add by ${prefix}adddonation #name #amount`);
-
-          break;
-
-        /* ------------------------------ CASE: DONATION ------------------------------ */
-        case "donation":
-        case "donate":
-          let donaResult = await getDonation();
-          // console.log(donaResult);
-          let totalDona = 0;
-          let donaMsgTemp = "";
-          donaResult.forEach((dona, index) => {
-            totalDona += dona.amount;
-            donaMsgTemp += `\n❤️ Rs ${dona.amount} - ${dona.name}`;
-          });
-
-          let donaMsg = `Helping DEZKRAZZER DEVELOPMENT${readMore} to grow and provide good stuff for all members.\nUse cases: domain name for DEZKRAZZER website, tournaments in future, server for all bots and website, etc etc.\n\n*Any amount is appreciated.*\n\n*LINK: https://trakteer.id/dezkrazzer/tip*\n\nAfter sending donation, take a screenshot and send to https://wa.me/6282337130026 with your name. [Your name will be shown here after that]\n\n*Total Donations: Rs ${totalDona}*`;
-
-          donaMsg += donaMsgTemp;
-          conn.sendMessage(
-            from,
-            fs.readFileSync("./assert/donation.jpg"),
-            MessageType.image,
-            {
-              mimetype: Mimetype.png,
-              quoted: mek,
-              caption: donaMsg,
-              detectLinks: false,
-            }
-          );
-          break;
-
-        /* --------------------------------- zero --------------------------------- */
-        case "zero":
-          try {
-            if (!isGroup) {
-              reply("❌ Group command only!");
-              return;
-            }
-            // if (!pvxadminsMem.includes(sender)) {
-            //   reply(`❌ PVX admin only command!`);
-            //   return;
-            // }
-            if (!isGroupAdmins) {
-              reply("❌ Admin command!");
-              return;
-            }
-            let resultCountGroupIndi = await getCountGroupMembers(from);
-            let memWithMsg = new Set();
-            for (let member of resultCountGroupIndi) {
-              memWithMsg.add(member.memberjid);
-            }
-            let zeroMsg = `${groupName}\nMembers with 0 message from 24 NOV:${readMore}\n`;
-            groupMembers.forEach((mem) => {
-              if (!memWithMsg.has(mem.jid)) {
-                zeroMsg += `\n${mem.jid.split("@")[0]}`;
-              }
-            });
-            reply(zeroMsg);
-          } catch (err) {
-            console.log(err);
-          }
-
           break;
 
         /* ------------------------------- CASE: tagall ------------------------------ */
         case "tagall":
           if (!isGroup) {
-            reply("❌ Group command only!");
+            reply("❌ This command can only be used in group chat!");
             return;
           }
           if (
             groupName.toUpperCase().includes("PVX") &&
             ![myNumber + "@s.whatsapp.net", botNumberJid].includes(sender)
           ) {
-            reply(`❌ Owner only command for avoiding spam in PVX Groups!`);
+            reply(`❌ This command is for the owner to avoid spam!`);
             return;
           }
           if (!isGroupAdmins) {
-            reply("❌ Admin command!");
+            reply("❌ This command can only be used by group admins!");
             return;
           }
           let jids = [];
-          let mesaj = "ALL: ";
+          let mesaj = "📢 : ";
           if (
             mek.message.extendedTextMessage &&
             mek.message.extendedTextMessage.contextInfo.quotedMessage
@@ -1110,9 +820,13 @@ const main = async () => {
         /* ------------------------------- CASE: DELETE ------------------------------ */
         case "delete":
         case "d":
+          if (myNumber + "@s.whatsapp.net" !== sender) {
+            reply(`❌ This command can only be used by owner!`);
+            return;
+          }
           try {
             if (!mek.message.extendedTextMessage) {
-              reply(`❌ Tag message of bot to delete.`);
+              reply(`❌ Reply to the message of the bot you want to delete.`);
               return;
             }
             if (
@@ -1127,128 +841,18 @@ const main = async () => {
                 fromMe: true,
               });
             } else {
-              reply(`❌ Tag message of bot to delete.`);
+              reply(`❌ Reply to the message of the bot you want to delete.`);
             }
           } catch (err) {
             console.log(err);
-            reply(`❌ Error!`);
-          }
-          break;
-
-        /* ------------------------------- CASE: DELETEAUTH ------------------------------ */
-        case "deleteauth":
-          if (myNumber + "@s.whatsapp.net" !== sender) {
-            reply(`❌ Command only for owner!`);
-            return;
-          }
-          try {
-            await dropAuth();
-            reply(`✔ auth data deleted!`);
-          } catch (err) {
-            console.log(err);
-            reply(`❌ Error!`);
-          }
-          break;
-
-        /* ------------------------------- CASE: TG sticker ------------------------------ */
-        case "stg":
-          if (myNumber + "@s.whatsapp.net" !== sender) {
-            reply(`❌ Owner only command for avoiding spam!`);
-            return;
-          }
-          if (!stickertg) {
-            reply(`❌ tg stickers download is not started!`);
-            return;
-          }
-
-          clearInterval(setIntervaltg);
-          stickertg = false;
-          reply(`✔ Stopped tg stickers download!`);
-
-          break;
-
-        case "tg":
-          if (myNumber + "@s.whatsapp.net" !== sender) {
-            reply(`❌ Owner only command for avoiding spam!`);
-            return;
-          }
-          if (!isTaggedDocument) {
-            reply(`❌ Send zip document file!`);
-            return;
-          }
-          if (stickertg) {
-            reply(`❌ Another process is going on. wait till it finish!`);
-            return;
-          }
-          try {
-            stickertg = true;
-            const encmediatg = JSON.parse(
-              JSON.stringify(mek).replace("quotedM", "m")
-            ).message.extendedTextMessage.contextInfo;
-
-            console.log("downloading...");
-            const mediatg = await conn.downloadAndSaveMediaMessage(encmediatg);
-            console.log("downloaded", mediatg);
-
-            // reading zip
-            let zip = new AdmZip(`./${mediatg}`);
-            // extracts everything
-            zip.extractAllTo(`./`, true);
-            let zipEntries = zip.getEntries(); // an array of ZipEntry records
-
-            // let filestg = fs.readdirSync(dirNametg);
-            let stickerCounttg = zipEntries.length;
-            console.log("extracted: files " + stickerCounttg);
-
-            reply(`✔ Sending all ${stickerCounttg} stickers`);
-            let itg = -1;
-            setIntervaltg = setInterval(async () => {
-              itg += 1;
-
-              //last file
-              if (itg >= stickerCounttg - 1) {
-                stickertg = false;
-                clearInterval(setIntervaltg);
-                reply(`✔ Finished!`);
-              }
-              console.log("Sending sticker ", itg);
-              if (zipEntries[itg].entryName.endsWith(".webp")) {
-                let filepath = `${__dirname}`;
-                //add slash of not present
-                filepath += zipEntries[itg].entryName.startsWith("/")
-                  ? ""
-                  : "/";
-                filepath += `${zipEntries[itg].entryName}`;
-
-                //"<{PVX}> BOT 🤖"
-                //"https://pvxcommunity.com"
-                const webpWithMetadatatg = await WSF.setMetadata(
-                  "BOT 🤖",
-                  "pvxcommunity.com",
-                  filepath
-                );
-                await conn.sendMessage(
-                  from,
-                  webpWithMetadatatg,
-                  MessageType.sticker
-                );
-              }
-            }, 0);
-          } catch (err) {
-            console.log(err);
-            reply(`❌ Some error came!`);
-            stickertg = false;
+            reply(`❌ Something went wrong, please check console!`);
           }
           break;
 
           /* ------------------------------- CASE: SONG ------------------------------ */
         case "song":
-          if (!isGroup) {
-            reply("❌ Group command only!");
-            return;
-          }
           if (args.length === 0) {
-            reply(`❌ Query is empty! \nSend ${prefix}song query`);
+            reply(`❌ Please enter a query! \n*Example:* ${prefix}song Alone`);
             return;
           }
           try {
@@ -1261,7 +865,7 @@ const main = async () => {
               );
               return;
             }
-            console.log(`song saved-> ./${randomName}`, response);
+            console.log(`Song saved-> ./${randomName}`, response);
 
             await conn.sendMessage(
               from,
@@ -1276,30 +880,26 @@ const main = async () => {
             fs.unlinkSync(`./${randomName}`);
           } catch (err) {
             console.log(err);
-            reply(`❌ There is some problem.`);
+            reply(`❌ Something went wrong, please check console!`);
           }
           break;
 
         /* ------------------------------- CASE: YTA ------------------------------ */
         case "yta":
-          if (!isGroup) {
-            reply("❌ Group command only!");
-            return;
-          }
           if (args.length === 0) {
-            reply(`❌ URL is empty! \nSend ${prefix}yta url`);
+            reply(`❌ Please input YouTube URL! \n*Example:* ${prefix}yta https://youtube.com/watch/a`);
             return;
           }
           try {
             let urlYt = args[0];
             if (!urlYt.startsWith("http")) {
-              reply(`❌ Give youtube link!`);
+              reply(`❌ Please give a YouTube link!`);
               return;
             }
             let infoYt = await ytdl.getInfo(urlYt);
             //30 MIN
             if (infoYt.videoDetails.lengthSeconds >= 1800) {
-              reply(`❌ Video too big!`);
+              reply(`❌ This video is too big!`);
               return;
             }
             let titleYt = infoYt.videoDetails.title;
@@ -1339,30 +939,26 @@ const main = async () => {
             fs.unlinkSync(`./${randomName}`);
           } catch (err) {
             console.log(err);
-            reply(`❌ There is some problem.`);
+            reply(`❌ Something went wrong, please check console!`);
           }
 
           break;
         /* ------------------------------- CASE: YT ------------------------------ */
         case "ytv":
-          if (!isGroup) {
-            reply("❌ Group command only!");
-            return;
-          }
           if (args.length === 0) {
-            reply(`❌ URL is empty! \nSend ${prefix}ytv url`);
+            reply(`❌ Please input YouTube URL! \n*Example:* ${prefix}ytv https://youtube.com/watch/a`);
             return;
           }
           try {
             let urlYt = args[0];
             if (!urlYt.startsWith("http")) {
-              reply(`❌ Give youtube link!`);
+              reply(`❌ Please give a YouTube link!`);
               return;
             }
             let infoYt = await ytdl.getInfo(urlYt);
             //30 MIN
             if (infoYt.videoDetails.lengthSeconds >= 1800) {
-              reply(`❌ Video too big!`);
+              reply(`❌ This video is too big!`);
               return;
             }
             let titleYt = infoYt.videoDetails.title;
@@ -1402,54 +998,16 @@ const main = async () => {
             fs.unlinkSync(`./${randomName}`);
           } catch (err) {
             console.log(err);
-            reply(`❌ There is some problem.`);
+            reply(`❌ Something went wrong, please check console!`);
           }
           break;
 
-        /* ----------------------------------- FB ----------------------------------- */
-        case "fb":
-          //not working in heroku
-          if (!isGroup) {
-            reply("❌ Group command only!");
-            return;
-          }
-          if (args.length === 0) {
-            reply(`❌ URL is empty! \nSend ${prefix}fb url`);
-            return;
-          }
-          let urlFb = args[0];
-          let randomName = getRandom(".mp4");
-          try {
-            let { videoDirectLinkFb } = await getFbVideo(urlFb);
-            if (videoDirectLinkFb) {
-              await saveInstaVideo(randomName, videoDirectLinkFb);
-              console.log(`video saved-> ./${randomName}`);
-              await conn.sendMessage(
-                from,
-                fs.readFileSync(`./${randomName}`), // can send mp3, mp4, & ogg
-                MessageType.video,
-                { mimetype: Mimetype.mp4, quoted: mek }
-              );
-              fs.unlinkSync(`./${randomName}`);
-            } else {
-              //TODO: throw err
-              reply(`❌ There is some problem!`);
-            }
-          } catch (err) {
-            console.log(err);
-            reply(`❌ There is some problem.`);
-          }
-          break;
 
         /* ------------------------------- CASE: INSTA ------------------------------ */
         case "insta":
         case "i":
-          if (!isGroup) {
-            reply("❌ Group command only!");
-            return;
-          }
           if (args.length === 0) {
-            reply(`❌ URL is empty! \nSend ${prefix}insta url`);
+            reply(`❌ Please input Instagram URL! \n*Example:* ${prefix}ytv https://instagram.com/p`);
             return;
           }
           let urlInsta = args[0];
@@ -1518,29 +1076,15 @@ const main = async () => {
           }
           break;
 
-        /* ------------------------------- CASE: QUOTES ------------------------------ */
-        case "quote":
-          if (!isGroup) {
-            reply("❌ Group command only!");
-            return;
-          }
-          let quote = await getQuote();
-          reply(quote);
-          break;
-
         /* ------------------------------- CASE: GENDER ------------------------------ */
         case "gender":
-          if (!isGroup) {
-            reply("❌ Group command only!");
-            return;
-          }
           if (args.length === 0) {
-            reply(`❌ Name is not given! \nSend ${prefix}gender firstname`);
+            reply(`❌ Please provide a person's name! \n*Example:* ${prefix}gender Aurora`);
             return;
           }
           let namePerson = args[0];
           if (namePerson.includes("@")) {
-            reply(`❌ Don't tag! \nSend ${prefix}gender firstname`);
+            reply(`❌ Please don't use tag! \n*Example:* ${prefix}gender Aurora`);
             return;
           }
           let genderText = await getGender(namePerson);
@@ -1549,10 +1093,6 @@ const main = async () => {
 
         /* ------------------------------- CASE: TEXT ------------------------------ */
         case "text":
-          if (!isGroup) {
-            reply("❌ Group command only!");
-            return;
-          }
 
           if (type === "imageMessage" || isTaggedImage) {
             const encmedia = isTaggedImage
@@ -1569,18 +1109,14 @@ const main = async () => {
 
             reply(message);
           } else {
-            reply("❌ Give image having text!");
+            reply("❌ Please provide an image containing text!");
           }
           break;
 
         /* ------------------------------- CASE: steal ------------------------------ */
         case "steal":
-          if (!isGroup) {
-            reply("❌ Group command only!");
-            return;
-          }
           if (!isTaggedSticker) {
-            reply(`❌ Tag a sticker with ${prefix}steal command!`);
+            reply(`❌ Reply a sticker with *${prefix}steal* command!`);
             return;
           }
           try {
@@ -1604,19 +1140,16 @@ const main = async () => {
             );
           } catch (err) {
             console.log(err);
-            reply("❌ There is some problem!");
+            reply("❌ Something went wrong, please check console!");
           }
           break;
 
         /* ------------------------------- CASE: TOIMG ------------------------------ */
         case "toimg":
         case "image":
-          if (!isGroup) {
-            reply("❌ Group command only!");
-            return;
-          }
+
           if (!isTaggedSticker) {
-            reply(`❌ Tag a sticker with ${prefix}toimg command!`);
+            reply(`❌ Reply a sticker with *${prefix}toimg* command!`);
             return;
           }
 
@@ -1634,7 +1167,7 @@ const main = async () => {
               .on("error", (err) => {
                 console.log(err);
                 reply(
-                  "❌ There is some problem!\nOnly non-animated stickers can be convert to image!"
+                  "❌ Something went wrong!\nOnly non-animated stickers can be convert to image!"
                 );
               })
               .on("end", () => {
@@ -1651,122 +1184,10 @@ const main = async () => {
               });
           } else {
             reply(
-              "❌ There is some problem!\nOnly non-animated stickers can be convert to image!"
+              "❌ Something went wrong!\nOnly non-animated stickers can be convert to image!"
             );
           }
           break;
-
-        case "slist":
-          reply(
-            `📛 MAKE COOL STICKERS FROM TEXT\n\n ${prefix}wall text\n ${prefix}matrix text\n ${prefix}flame text\n ${prefix}fire text\n ${prefix}city text\n ${prefix}3d text\n ${prefix} text\n ${prefix}light text\n ${prefix}ff text\n ${prefix}neon text\n ${prefix}flower text\n${prefix}sand text`
-          );
-          break;
-
-        /* -------------------------------- CASE: WALL ------------------------------- */
-        /*case "wall":
-        case "matrix":
-        case "flame":
-        case "fire":
-        case "city":
-        case "3d":
-        case "logo":
-        case "light":
-        case "ff":
-        case "neon":
-        case "flower":
-        case "sand":
-          let zeksType;
-          if (command === "wall") zeksType = "breakwall";
-          else if (command === "matrix") zeksType = "matrix";
-          else if (command === "flame") zeksType = "flametext";
-          else if (command === "fire") zeksType = "tfire";
-          else if (command === "city") zeksType = "lithgtext";
-          else if (command === "3d") zeksType = "text3dbox";
-          else if (command === "logo") zeksType = "logobp";
-          else if (command === "light") zeksType = "tlight";
-          else if (command === "ff") zeksType = "epep";
-          else if (command === "neon") zeksType = "bneon";
-          else if (command === "flower") zeksType = "flowertext";
-          else if (command === "sand") zeksType = "sandw";
-          if (!isGroup) {
-            reply("❌ Group command only!");
-            return;
-          }
-          if (args.length === 0) {
-            reply(`❌ Give some text.`);
-            return;
-          }
-          try {
-            let msg = body.trim().replace(/ +/, ",").split(",")[1];
-            let url = encodeURI(
-              "https://api.zeks.me/api/" +
-                zeksType +
-                "?apikey=" +
-                zeksapi +
-                "&text=" +
-                msg
-            );
-
-            let packName = "BOT 🤖";
-            let authorName = "pvxcommunity.com";
-            let ran = getRandom(".webp");
-
-            let outputOptions = [
-              `-vcodec`,
-              `libwebp`,
-              `-vf`,
-              `scale=600:600:flags=lanczos:force_original_aspect_ratio=decrease,format=rgba,pad=600:600:(ow-iw)/2:(oh-ih)/2:color=#00000000,setsar=1`,
-              `-loop`,
-              `0`,
-              `-ss`,
-              `00:00:00.0`,
-              `-t`,
-              `00:00:10.0`,
-              `-preset`,
-              `default`,
-              `-an`,
-              `-vsync`,
-              `0`,
-              `-s`,
-              `512:512`,
-            ];
-
-            ffmpeg(url)
-              .addOutputOptions(outputOptions)
-              .on("error", (err) => {
-                console.log(err);
-                reply(
-                  "❌ ERROR!\nOnly english and No emoji.\nMaybe the api/website is down."
-                );
-              })
-              .on("end", async () => {
-                const webpWithMetadata = await WSF.setMetadata(
-                  packName,
-                  authorName,
-                  ran
-                );
-                await conn.sendMessage(
-                  from,
-                  webpWithMetadata,
-                  MessageType.sticker,
-                  {
-                    quoted: mek,
-                  }
-                );
-                try {
-                  fs.unlinkSync(ran);
-                } catch (err) {
-                  console.log(err);
-                }
-              })
-              .toFormat("webp")
-              .save(ran);
-          } catch (err) {
-            console.log(err);
-            reply("❌ ERROR!");
-          }
-
-          break;*/
 
         /* ------------------------------- CASE: STICKER ------------------------------ */
         case "sticker":
@@ -1817,26 +1238,6 @@ const main = async () => {
               ];
             }
 
-            // //new version of wa-sticker-formatter...
-            // async function addMetadataSticker(media, ran, type) {
-            //   console.log(ran);
-            //   await conn.sendMessage(from, ran, MessageType.sticker, {
-            //     quoted: mek,
-            //   });
-            //   const sticker = new Sticker(`./${ran}`, {
-            //     pack: packName,
-            //     author: authorName,
-            //     type,
-            //     quality: 40,
-            //   });
-            //   // await sticker.toFile(ran);
-            //   const buffer = await sticker.build();
-            //   await conn.sendMessage(from, buffer, MessageType.sticker, {
-            //     quoted: mek,
-            //   });
-            //   fs.unlinkSync(media);
-            //   fs.unlinkSync(ran);
-            // }
             async function buildSticker(media, ran) {
               const webpWithMetadata = await WSF.setMetadata(
                 packName,
@@ -1886,39 +1287,21 @@ const main = async () => {
 
           break;
 
-        /* ------------------------------- CASE: DRIVE ------------------------------ */
-        // case "drive":
-        // if (blockCommandsInDesc.includes(command)) {            reply("❌ Command blocked for this group!");   return;}
-
-        //   if (!isGroup) {
-        //     reply("❌ Group command only!");
-        //     return;
-        //   }
-        //   if (args.length === 0) {
-        //     reply(`❌ Query is empty! \nSend ${prefix}drive query_name`);
-        //     return;
-        //   }
-        //   let query = args.join(" ");
-        //   let respo = await driveQuery(query);
-        //   reply(respo);
-
-        //   break;
-
         /* ------------------------------- CASE: ADD ------------------------------ */
         case "add":
           //reply("❌ Command Temperory Removed!");
           //return;
 
           if (!isGroup) {
-            reply("❌ Group command only!");
+            reply("❌ This command can only be used in group chat!");
             return;
           }
           if (!isGroupAdmins) {
-            reply("❌ Admin command!");
+            reply("❌ This command can only be used by group admins!");
             return;
           }
           if (!isBotGroupAdmins) {
-            reply("❌ I'm not Admin here!");
+            reply("❌ I'm not an admin here!");
             return;
           }
 
@@ -1929,7 +1312,7 @@ const main = async () => {
           } else {
             //number is given like !add 919557---82
             if (args.length === 0) {
-              reply("❌ Give number to add!");
+              reply("❌ Please provide a number to add!");
               return;
             }
             num = `${args.join("").replace(/ |-|\(|\)/g, "")}@s.whatsapp.net`; //remove spaces , ( , ) and -
@@ -1945,7 +1328,7 @@ const main = async () => {
             let number = `${num.split("@s.whatsapp.net")[0]}`;
             let get_status = response[`${number}@c.us`];
             if (get_status == 400) {
-              reply("_❌ Invalid number, include country code also!_");
+              reply("_❌ Invalid number, please provide country code too!_");
             } else if (get_status == 403) {
               reply("_❌ Number has privacy on adding group!_");
             } else if (get_status == 408) {
@@ -1955,10 +1338,10 @@ const main = async () => {
             } else if (get_status == 500) {
               reply("_❌ Group is currently full!_");
             } else if (get_status == 200) {
-              reply("_✔ Number added to group!_");
+              reply("_✅ Number added to group!_");
             }
           } catch {
-            reply("_❌ Give correct number with country code also!_");
+            reply("_❌ Please give correct number including country code too!_");
           }
           break;
 
@@ -1967,19 +1350,19 @@ const main = async () => {
         case "ban":
         case "remove":
           if (!isGroup) {
-            reply("❌ Group command only!");
+            reply("❌ This command can only be used in group chat!");
             return;
           }
           if (!isGroupAdmins) {
-            reply("❌ Admin command!");
+            reply("❌ This command can only be used by group admins!");
             return;
           }
           if (!isBotGroupAdmins) {
-            reply("❌ I'm not Admin here!");
+            reply("❌ I'm not an admin here!");
             return;
           }
           if (!mek.message.extendedTextMessage) {
-            reply("❌ Tag someone!");
+            reply("❌ You must tag someone to kick!");
             return;
           }
 
@@ -2016,14 +1399,14 @@ const main = async () => {
             if (mentioned.length === 1) {
               if (groupAdmins.includes(mentioned[0])) {
                 //if admin then don't remove
-                reply("❌ Cannot remove admin!");
+                reply("❌ You can't remove an admin!");
                 return;
               }
               conn.groupRemove(from, mentioned);
-              reply("_✔ Number removed from group!_");
+              reply("_✅ Number removed from group!_");
             } else {
               //if multiple members are tagged
-              reply("❌ Mention only 1 member!");
+              reply("❌ You can only tag someone!");
             }
           } else {
             //when message is tagged with command
@@ -2032,22 +1415,22 @@ const main = async () => {
             ];
             if (groupAdmins.includes(taggedMessageUser[0])) {
               //if admin then don't remove
-              reply("❌ Cannot remove admin!");
+              reply("❌ You can't remove an admin!");
               return;
             }
             conn.groupRemove(from, taggedMessageUser);
-            reply("_✔ Number removed from group!_");
+            reply("_✅ Number removed from group!_");
           }
           break;
 
         /* ------------------------------- CASE: MUTE ------------------------------ */
         case "mute":
           if (!isGroup) {
-            reply("❌ Group command only!");
+            reply("❌ This command can only be used in group chat!");
             return;
           }
           if (!isGroupAdmins) {
-            reply("❌ Admin command!");
+            reply("❌ This command can only be used by group admins!");
             return;
           }
           await conn.groupSettingChange(
@@ -2060,11 +1443,11 @@ const main = async () => {
         /* ------------------------------- CASE: UNMUTE ------------------------------ */
         case "unmute":
           if (!isGroup) {
-            reply("❌ Group command only!");
+            reply("❌ This command can only be used in group chat!");
             return;
           }
           if (!isGroupAdmins) {
-            reply("❌ Admin command!");
+            reply("❌ This command can only be used by group admins!");
             return;
           }
           await conn.groupSettingChange(

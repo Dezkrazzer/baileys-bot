@@ -5,117 +5,62 @@
   return `*─【 🤖 DEZKRAZZER BOT 🤖 】─*
 Some commands may not work due to maintenance
 ${readMore}
+General Commands
+📛 *${prefix}help*
+    - _Displays a list of available commands_
+    Alias: *${prefix}h*, *${prefix}list*
+
+📛 *${prefix}ping*
+    - _Check the client's response to the server_  
+
 📛 *${prefix}sticker*
-    - _Create sticker from media!_
+    - _Create sticker from a media_
     Alias: *${prefix}s*
-    
-📛 *${prefix}sticker crop*
-    - _Create full size sticker from media!_
-    Alias: *${prefix}s c*
 
 📛 *${prefix}image*
-    - _Create image from sticker!_
+    - _Create image from sticker_
+    Alias: *${prefix}toimg*
     
-📛 *${prefix}count*
-    - _Know your message count in current group!_
+📛 *${prefix}steal*
+    - _Stealing watermarks on certain stickers_
 
-📛 *${prefix}total*
-    - _Know your message count in all PVX groups!_
+📛 *${prefix}text*
+    - _Retrieve text on a given image_
 
-📛 *${prefix}insta url*
-    - _Instagram videos downloader!_
-    Alias: *${prefix}i url*📛 
+📛 *${prefix}gender*
+    - _Guess someone's gender from name_
 
-*${prefix}fb url*
-    - _Facebook videos downloader!_
-
-📛 *${prefix}donation*
-    - _Get donation details and help PVX community!_
-
-📛 *${prefix}feedback*
-    - _Get feedback form!_
-
-📛 *${prefix}rules*
-    - _Get PVX groups rules!_
-    Alias: *${prefix}r*
-    
+Downloader Commands
 📛 *${prefix}ytv url*
     - _Youtube videos downloader!_
 
 📛 *${prefix}yta url*
     - _Youtube audio downloader!_
 
-📛 *${prefix}steal*
-    - _Change sticker name to PVX BOT!_
+📛 *${prefix}insta url [⚠]*
+    - _Instagram media downloader!_
+    
+📛 *${prefix}song*
+    - _Download the song of the given title_   
 
+Admin Group Commands
 📛 *${prefix}add <phone number>*
     - _Add new member!_
-    [or tag message of removed member with *${prefix}add*]
+    [or reply message of removed member with *${prefix}add*]
     
 📛 *${prefix}kick <mention>*
     - _Kick member from group!_
-    [or tag message of member with *${prefix}kick*]
+    Alias: *${prefix}ban*, *${prefix}remove*
+    [or reply message of member with *${prefix}kick*]
 
 📛 *${prefix}mute | ${prefix}unmute*
     - _Mute and Unmute the group!_
 
 📛 *${prefix}warning*
     - _Give warning to user!_
+    Alias: *${prefix}warn*
 
-📛 *${prefix}delete*
-    - _Delete message of bot!_
-    Alias: *${prefix}d*
-
-📛 *${prefix}song name*
-    - _Get songs in good quality!_
-    [Better use ${prefix}yta command to download correct song from youtube]
-
-📛 *${prefix}text*
-    - _Get text extractor from image!_
-
-📛 *${prefix}alive*
-    - _Check if bot is ON or OFF!_
-    Alias: *${prefix}a*
-
-📛 *${prefix}cricketcommand*
-    - _To get command details of cricket!_
-    Alias: *${prefix}cc*
-
-📛 *${prefix}votecommand*
-    - _To get command details of voting!_
-    Alias: *${prefix}vc*
-
-📛 *${prefix}quote*
-    - _Give a random quote!_
-
-📛 *${prefix}gender firstname*
-    - _Get gender from person first name!_
-      
-📛 *${prefix}technews*
-    - _Get latest Tech news from inshorts !_
-
-📛 *${prefix}pvxlink*
-    - _Get links for all PVX groups!_
-
-📛 *${prefix}source*
-    - _Get bot source code!_
-
-📛 *${prefix}dev*
-    - _Get dev contact to report bug or to add new feature!_
-
-📛 *${prefix}block*
-    - _To block particular commands for this group!_
-
-📛 *${prefix}91only*
-    - _To instant ban all numbers other than 91 when joined for this group!_
-
-📛 *${prefix}help*
-    - _To get list of public commands!_
-
-📛 *${prefix}helpr*
-    - _To get list of restricted commands!_
-
- ✔️ more cool commands coming...`;
+ ✔️ another cool command is coming soon...`;
 };
 
 // 📛 *${prefix}drive query_name*
