@@ -1487,7 +1487,9 @@ const main = async () => {
                       mimetype: "audio/mpeg",
                       filename: "ttsID.mp3",
                       ptt: true,
+                      detectLinks: true,
                       quoted: mek,
+                      sendEphemeral: 'chat'
                     }
                   );
                   fs.unlinkSync(`./media/tts/resId.mp3`);
@@ -1502,7 +1504,9 @@ const main = async () => {
                       mimetype: "audio/mpeg",
                       filename: "ttsEN.mp3",
                       ptt: true,
+                      detectLinks: true,
                       quoted: mek,
+                      sendEphemeral: 'chat'
                     }
                   );
                   fs.unlinkSync(`./media/tts/resEn.mp3`);
@@ -1517,7 +1521,9 @@ const main = async () => {
                       mimetype: "audio/mpeg",
                       filename: "ttsJP.mp3",
                       ptt: true,
+                      detectLinks: true,
                       quoted: mek,
+                      sendEphemeral: 'chat'
                     }
                   );
                   fs.unlinkSync(`./media/tts/resJp.mp3`);
@@ -1532,7 +1538,9 @@ const main = async () => {
                       mimetype: "audio/mpeg",
                       filename: "ttsAR.mp3",
                       ptt: true,
+                      detectLinks: true,
                       quoted: mek,
+                      sendEphemeral: 'chat'
                     }
                   );
                   fs.unlinkSync(`./media/tts/resAr.mp3`);
