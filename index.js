@@ -1486,6 +1486,7 @@ const main = async () => {
                     {
                       mimetype: "audio/mpeg",
                       filename: "ttsID.mp3",
+                      ptt: true,
                       quoted: mek,
                     }
                   );
@@ -1500,6 +1501,7 @@ const main = async () => {
                     {
                       mimetype: "audio/mpeg",
                       filename: "ttsEN.mp3",
+                      ptt: true,
                       quoted: mek,
                     }
                   );
@@ -1514,6 +1516,7 @@ const main = async () => {
                     {
                       mimetype: "audio/mpeg",
                       filename: "ttsJP.mp3",
+                      ptt: true,
                       quoted: mek,
                     }
                   );
@@ -1528,6 +1531,7 @@ const main = async () => {
                     {
                       mimetype: "audio/mpeg",
                       filename: "ttsAR.mp3",
+                      ptt: true,
                       quoted: mek,
                     }
                   );
