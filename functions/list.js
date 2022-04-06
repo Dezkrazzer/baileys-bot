@@ -3,8 +3,8 @@
   const readMore = more.repeat(4001);
 
   return `*─【 🤖 DEZKRAZZER BOT 🤖 】─*
-  Some commands may not work due to maintenance
-  ${readMore}
+Some commands may not work due to maintenance
+${readMore}
 📛 *${prefix}sticker*
     - _Create sticker from media!_
     Alias: *${prefix}s*
@@ -12,21 +12,6 @@
 📛 *${prefix}sticker crop*
     - _Create full size sticker from media!_
     Alias: *${prefix}s c*
-
-📛 *${prefix}slist*
-    - Get list of stickers command!_
-📛 ${prefix}wall text
-📛 ${prefix}matrix text
-📛 ${prefix}flame text
-📛 ${prefix}fire text
-📛 ${prefix}city text
-📛 ${prefix}3d text
-📛 ${prefix}logo text
-📛 ${prefix}light text
-📛 ${prefix}ff text
-📛 ${prefix}neon text
-📛 ${prefix}flower text
-📛 ${prefix}sand text
 
 📛 *${prefix}image*
     - _Create image from sticker!_
