@@ -4,7 +4,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 const port = process.env.PORT || 8000;
 app.get("/", (req, res) => {
-  res.send("Bot is running fine... no tension :)");
+  res.send("The client is running normally");
 });
 app.listen(port, () => {
   // console.clear();
@@ -2820,10 +2820,6 @@ _Only numbers starting with the code +91 (i.e. Indians) are allowed to join._`);
         /* ------------------------------- CASE: STICKER ------------------------------ */
         case "sticker":
         case "s":
-          if (!isGroup) {
-            reply("❌ Group command only!");
-            return;
-          }
           if (isMedia || isTaggedImage || isTaggedVideo) {
             let packName = "BOT 🤖";
             let authorName = "pvxcommunity.com";
