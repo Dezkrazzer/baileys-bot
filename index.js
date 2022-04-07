@@ -1300,7 +1300,7 @@ const main = async () => {
                 reply(`❌ Failed to convert media to sticker!`);
               })
               .on("end", async () => {
-                buildSticker(media, ran);
+                addMetadataSticker(media, ran, type);
               })
               .toFormat("webp")
               .save(ran);
