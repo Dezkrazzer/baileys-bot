@@ -1238,6 +1238,30 @@ const main = async () => {
               ];
             }
 
+           async function addMetadataSticker(media, ran, type) {
+               console.log(ran);
+               await conn.sendMessage(from, ran, MessageType.sticker, {
+                 quoted: mek,
+               });
+               const sticker = new Sticker(`./${ran}`, {
+                 pack: packName,
+                 author: authorName,
+                 type,
+                 quality: 40,
+               });
+               await sticker.toFile(ran);
+               const buffer = await sticker.build();
+               await conn.sendMessage(from, buffer, MessageType.sticker, {
+                 quoted: mek,
+               });
+              try {
+                fs.unlinkSync(ran);
+                fs.unlinkSync(media);
+              } catch (err) {
+                console.log(err);
+              }
+             }
+/*
             async function buildSticker(media, ran) {
               const webpWithMetadata = await WSF.setMetadata(
                 packName,
@@ -1258,7 +1282,7 @@ const main = async () => {
               } catch (err) {
                 console.log(err);
               }
-            }
+            } */
 
             const encmedia =
               isTaggedImage || isTaggedVideo
