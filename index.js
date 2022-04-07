@@ -495,7 +495,6 @@ const main = async () => {
       const args = body.trim().split(/ +/).slice(1);
       const isCmd = body.startsWith(prefix);
 
-
       if (!isCmd) return;
       errors = {
         admin_error: "❌ I'm not an admin here!",
@@ -506,8 +505,6 @@ const main = async () => {
       const groupMetadata = isGroup ? await conn.groupMetadata(from) : "";
       const groupName = isGroup ? groupMetadata.subject : "";
       let sender = isGroup ? mek.participant : from;
-
-
 
       // console.log(mek);
       if (mek.key.fromMe) sender = botNumberJid;
@@ -849,7 +846,7 @@ const main = async () => {
           }
           break;
 
-          /* ------------------------------- CASE: SONG ------------------------------ */
+        /* ------------------------------- CASE: SONG ------------------------------ */
         case "song":
           if (args.length === 0) {
             reply(`❌ Please enter a query! \n*Example:* ${prefix}song Alone`);
@@ -887,7 +884,9 @@ const main = async () => {
         /* ------------------------------- CASE: YTA ------------------------------ */
         case "yta":
           if (args.length === 0) {
-            reply(`❌ Please input YouTube URL! \n*Example:* ${prefix}yta https://youtube.com/watch/a`);
+            reply(
+              `❌ Please input YouTube URL! \n*Example:* ${prefix}yta https://youtube.com/watch/a`
+            );
             return;
           }
           try {
@@ -946,7 +945,9 @@ const main = async () => {
         /* ------------------------------- CASE: YT ------------------------------ */
         case "ytv":
           if (args.length === 0) {
-            reply(`❌ Please input YouTube URL! \n*Example:* ${prefix}ytv https://youtube.com/watch/a`);
+            reply(
+              `❌ Please input YouTube URL! \n*Example:* ${prefix}ytv https://youtube.com/watch/a`
+            );
             return;
           }
           try {
@@ -1002,12 +1003,13 @@ const main = async () => {
           }
           break;
 
-
         /* ------------------------------- CASE: INSTA ------------------------------ */
         case "insta":
         case "i":
           if (args.length === 0) {
-            reply(`❌ Please input Instagram URL! \n*Example:* ${prefix}ytv https://instagram.com/p`);
+            reply(
+              `❌ Please input Instagram URL! \n*Example:* ${prefix}ytv https://instagram.com/p`
+            );
             return;
           }
           let urlInsta = args[0];
@@ -1079,12 +1081,16 @@ const main = async () => {
         /* ------------------------------- CASE: GENDER ------------------------------ */
         case "gender":
           if (args.length === 0) {
-            reply(`❌ Please provide a person's name! \n*Example:* ${prefix}gender Aurora`);
+            reply(
+              `❌ Please provide a person's name! \n*Example:* ${prefix}gender Aurora`
+            );
             return;
           }
           let namePerson = args[0];
           if (namePerson.includes("@")) {
-            reply(`❌ Please don't use tag! \n*Example:* ${prefix}gender Aurora`);
+            reply(
+              `❌ Please don't use tag! \n*Example:* ${prefix}gender Aurora`
+            );
             return;
           }
           let genderText = await getGender(namePerson);
@@ -1093,7 +1099,6 @@ const main = async () => {
 
         /* ------------------------------- CASE: TEXT ------------------------------ */
         case "text":
-
           if (type === "imageMessage" || isTaggedImage) {
             const encmedia = isTaggedImage
               ? JSON.parse(JSON.stringify(mek).replace("quotedM", "m")).message
@@ -1147,7 +1152,6 @@ const main = async () => {
         /* ------------------------------- CASE: TOIMG ------------------------------ */
         case "toimg":
         case "image":
-
           if (!isTaggedSticker) {
             reply(`❌ Reply a sticker with *${prefix}toimg* command!`);
             return;
@@ -1237,7 +1241,7 @@ const main = async () => {
                 `512:512`,
               ];
             }
-
+            /*
            async function addMetadataSticker(media, ran, type) {
                console.log(ran);
                await conn.sendMessage(from, ran, MessageType.sticker, {
@@ -1261,7 +1265,7 @@ const main = async () => {
                 console.log(err);
               }
              }
-/*
+*/
             async function buildSticker(media, ran) {
               const webpWithMetadata = await WSF.setMetadata(
                 packName,
@@ -1282,7 +1286,7 @@ const main = async () => {
               } catch (err) {
                 console.log(err);
               }
-            } */
+            }
 
             const encmedia =
               isTaggedImage || isTaggedVideo
@@ -1300,7 +1304,7 @@ const main = async () => {
                 reply(`❌ Failed to convert media to sticker!`);
               })
               .on("end", async () => {
-                addMetadataSticker(media, ran, type);
+                buildSticker(media, ran, type);
               })
               .toFormat("webp")
               .save(ran);
@@ -1365,7 +1369,9 @@ const main = async () => {
               reply("_✅ Number added to group!_");
             }
           } catch {
-            reply("_❌ Please give correct number including country code too!_");
+            reply(
+              "_❌ Please give correct number including country code too!_"
+            );
           }
           break;
 
@@ -1484,98 +1490,104 @@ const main = async () => {
         /* ------------------------------- CASE: PING ------------------------------ */
 
         case "ping":
-          reply("🏓 Pong!")
+          reply("🏓 Pong!");
           break;
 
         /* ------------------------------- CASE: TTS ------------------------------ */
-          case "tts":
-            if (args.length === 1) {
-              reply(`❌ Please enter a query! \n*Usage:* ${prefix}tts [id | en | jp | ar] [text]\n*Example:* ${prefix}tts en Hello world`);
-              return;
-            }
-            const ttsId = require('node-gtts')('id')
-            const ttsEn = require('node-gtts')('en')
-	          const ttsJp = require('node-gtts')('ja')
-            const ttsAr = require('node-gtts')('ar')
-            const dataText = body.slice(8)
-            if (dataText === '') return reply(`Baka?`)
-            if (dataText.length > 500) return reply(`❌ Text too loooongg!`)
-            var dataBhs = body.slice(5, 7)
-	          if (dataBhs == 'id') {
-                ttsId.save('./media/tts/resId.mp3', dataText, function () {
-                  conn.sendMessage(
-                    from,
-                    fs.readFileSync(`./media/tts/resId.mp3`),
-                    MessageType.document,
-                    {
-                      mimetype: "audio/mpeg",
-                      filename: "ttsID.mp3",
-                      ptt: true,
-                      detectLinks: true,
-                      quoted: mek,
-                      sendEphemeral: 'chat'
-                    }
-                  );
-                  fs.unlinkSync(`./media/tts/resId.mp3`);
-                })
-            } else if (dataBhs == 'en') {
-                ttsEn.save('./media/tts/resEn.mp3', dataText, function () {
-                  conn.sendMessage(
-                    from,
-                    fs.readFileSync(`./media/tts/resEn.mp3`),
-                    MessageType.document,
-                    {
-                      mimetype: "audio/mpeg",
-                      filename: "ttsEN.mp3",
-                      ptt: true,
-                      detectLinks: true,
-                      quoted: mek,
-                      sendEphemeral: 'chat'
-                    }
-                  );
-                  fs.unlinkSync(`./media/tts/resEn.mp3`);
-                })
-            } else if (dataBhs == 'jp') {
-                ttsJp.save('./media/tts/resJp.mp3', dataText, function () {
-                  conn.sendMessage(
-                    from,
-                    fs.readFileSync(`./media/tts/resJp.mp3`),
-                    MessageType.document,
-                    {
-                      mimetype: "audio/mpeg",
-                      filename: "ttsJP.mp3",
-                      ptt: true,
-                      detectLinks: true,
-                      quoted: mek,
-                      sendEphemeral: 'chat'
-                    }
-                  );
-                  fs.unlinkSync(`./media/tts/resJp.mp3`);
-                })
-	          } else if (dataBhs == 'ar') {
-                ttsAr.save('./media/tts/resAr.mp3', dataText, function () {
-                  conn.sendMessage(
-                    from,
-                    fs.readFileSync(`./media/tts/resAr.mp3`),
-                    MessageType.document,
-                    {
-                      mimetype: "audio/mpeg",
-                      filename: "ttsAR.mp3",
-                      ptt: true,
-                      detectLinks: true,
-                      quoted: mek,
-                      sendEphemeral: 'chat'
-                    }
-                  );
-                  fs.unlinkSync(`./media/tts/resAr.mp3`);
-                })
-            } else {
-                reply(`Masukkan data bahasa : [id] untuk indonesia, [en] untuk inggris, [jp] untuk jepang, dan [ar] untuk arab`)
-            }
-            break;
-  
+        case "tts":
+          if (args.length === 1) {
+            reply(
+              `❌ Please enter a query! \n*Usage:* ${prefix}tts [id | en | jp | ar] [text]\n*Example:* ${prefix}tts en Hello world`
+            );
+            return;
+          }
+          const ttsId = require("node-gtts")("id");
+          const ttsEn = require("node-gtts")("en");
+          const ttsJp = require("node-gtts")("ja");
+          const ttsAr = require("node-gtts")("ar");
+          const dataText = body.slice(8);
+          if (dataText === "") return reply(`Baka?`);
+          if (dataText.length > 500) return reply(`❌ Text too loooongg!`);
+          var dataBhs = body.slice(5, 7);
+          if (dataBhs == "id") {
+            ttsId.save("./media/tts/resId.mp3", dataText, function () {
+              conn.sendMessage(
+                from,
+                fs.readFileSync(`./media/tts/resId.mp3`),
+                MessageType.document,
+                {
+                  mimetype: "audio/mpeg",
+                  filename: "ttsID.mp3",
+                  ptt: true,
+                  detectLinks: true,
+                  quoted: mek,
+                  sendEphemeral: "chat",
+                }
+              );
+              fs.unlinkSync(`./media/tts/resId.mp3`);
+            });
+          } else if (dataBhs == "en") {
+            ttsEn.save("./media/tts/resEn.mp3", dataText, function () {
+              conn.sendMessage(
+                from,
+                fs.readFileSync(`./media/tts/resEn.mp3`),
+                MessageType.document,
+                {
+                  mimetype: "audio/mpeg",
+                  filename: "ttsEN.mp3",
+                  ptt: true,
+                  detectLinks: true,
+                  quoted: mek,
+                  sendEphemeral: "chat",
+                }
+              );
+              fs.unlinkSync(`./media/tts/resEn.mp3`);
+            });
+          } else if (dataBhs == "jp") {
+            ttsJp.save("./media/tts/resJp.mp3", dataText, function () {
+              conn.sendMessage(
+                from,
+                fs.readFileSync(`./media/tts/resJp.mp3`),
+                MessageType.document,
+                {
+                  mimetype: "audio/mpeg",
+                  filename: "ttsJP.mp3",
+                  ptt: true,
+                  detectLinks: true,
+                  quoted: mek,
+                  sendEphemeral: "chat",
+                }
+              );
+              fs.unlinkSync(`./media/tts/resJp.mp3`);
+            });
+          } else if (dataBhs == "ar") {
+            ttsAr.save("./media/tts/resAr.mp3", dataText, function () {
+              conn.sendMessage(
+                from,
+                fs.readFileSync(`./media/tts/resAr.mp3`),
+                MessageType.document,
+                {
+                  mimetype: "audio/mpeg",
+                  filename: "ttsAR.mp3",
+                  ptt: true,
+                  detectLinks: true,
+                  quoted: mek,
+                  sendEphemeral: "chat",
+                }
+              );
+              fs.unlinkSync(`./media/tts/resAr.mp3`);
+            });
+          } else {
+            reply(
+              `Masukkan data bahasa : [id] untuk indonesia, [en] untuk inggris, [jp] untuk jepang, dan [ar] untuk arab`
+            );
+          }
+          break;
+
         default:
-          reply(`👋 Hi! I don't understand the command, please use *!help* for the list of commands`);
+          reply(
+            `👋 Hi! I don't understand the command, please use *!help* for the list of commands`
+          );
           break;
       }
     } catch (err) {
